@@ -174,9 +174,8 @@ Future<void> getLocalJson() async {
 
     List<dynamic> localJson = data["data"];
     log(localJson.first.toString());
- // final datas = await data["data"].cast<Map<String, dynlamic>>();
- // log('mmama ${localJson.first['fields'].toString()}');
-  Constants.switchs =localJson.first['fields']['fieldType'];
+
+  Constants.switchs =localJson.first['fields'].first['fieldType'].toString();
 
  // Constants.appColor =
 }

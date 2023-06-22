@@ -75,7 +75,7 @@ class Login extends StatelessWidget {
               }, child: const Text('Google Maps')),
               ElevatedButton(onPressed: (){
                 log(Constants.switchs);
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>    AfterLogin()));
+              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>    AfterLogin()));
               }, child: const Text('Local Button')),
 
 
