@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ui';
 import 'package:flutter/services.dart';
 
 import '../utilis/constants.dart';
@@ -39,7 +40,7 @@ class Fields {
   String? text;
   String? group;
   String? label;
-  String? value;
+ // String? value;
   String? append;
   Events? events;
   String? prepend;
@@ -65,7 +66,7 @@ class Fields {
         this.text,
         this.group,
         this.label,
-        this.value,
+       // this.value,
         this.append,
         this.events,
         this.prepend,
@@ -91,7 +92,7 @@ class Fields {
     text = json['text'];
     group = json['group'];
     label = json['label'];
-    value = json['value'];
+  //  value = json['value'];
     append = json['append'];
     events =
     json['events'] != null ? new Events.fromJson(json['events']) : null;
@@ -103,7 +104,7 @@ class Fields {
     maxlength = json['maxlength'];
     isRequired = json['isRequired'];
     labelWidth = json['labelWidth'];
-    defaultValue = json['defaultValue'];
+  //  defaultValue = json['defaultValue'];
     showPassword = json['showPassword'];
     showWordLimit = json['showWordLimit'];
     addMoreFeature = json['addMoreFeature'];
@@ -120,7 +121,7 @@ class Fields {
     data['text'] = this.text;
     data['group'] = this.group;
     data['label'] = this.label;
-    data['value'] = this.value;
+//    data['value'] = this.value;
     data['append'] = this.append;
     if (this.events != null) {
       data['events'] = this.events!.toJson();
@@ -167,20 +168,17 @@ class Events {
   }
 }
 
-Future<List<LocalJson>?>? getLocalJson() async {
-  var response = await rootBundle.loadString('asset/form.json');
+Future<void> getLocalJson() async {
+  final String response = await rootBundle.loadString('asset/form.json');
   final data = await json.decode(response);
 
-  log(data.toString());
-//  final datas = await data.cast<Map<String, dynamic>>();
+    List<dynamic> localJson = data["data"];
+    log(localJson.first.toString());
+ // final datas = await data["data"].cast<Map<String, dynlamic>>();
+ // log('mmama ${localJson.first['fields'].toString()}');
+  Constants.switchs =localJson.first['fields']['fieldType'];
 
-  //log(datas);
-
-  List<LocalJson> localJson = await data.map<LocalJson>((value) {
-    var userList = LocalJson.fromJson(value);
-
-    return userList;
-  }).toList();
-  Constants.switchs = localJson.first.fields!.first.fieldType!;
+ // Constants.appColor =
 }
+
 

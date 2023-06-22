@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kodiaryflutterdemo/model/company_listing_user_name.dart';
 import 'package:kodiaryflutterdemo/provider/company_listing_provider.dart';
 import 'package:kodiaryflutterdemo/ui/afterLogin.dart';
+import 'package:kodiaryflutterdemo/utilis/constants.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
@@ -10,8 +13,8 @@ class Login extends StatelessWidget {
 
 
 
-   TextEditingController textEditingControllerEmail = TextEditingController() ;
-   TextEditingController textEditingControllerPassword =TextEditingController();
+   TextEditingController textEditingControllerEmail = TextEditingController(text: 'suman@kodiary.com') ;
+   TextEditingController textEditingControllerPassword =TextEditingController(text: 'P@ssw0rd');
 
    @override
   Widget build(BuildContext context) {
@@ -36,7 +39,6 @@ class Login extends StatelessWidget {
                   hintText: "Enter Your Email",
                 //  hintStyle: hintStyle ?? const TextStyle(fontSize: 13),
                   contentPadding: EdgeInsets.only(top:10, left: 10),
-
                 ),
               ),
               TextFormField(
@@ -62,19 +64,20 @@ class Login extends StatelessWidget {
               context.read<CompanyListingProvider>().loginProvider
                   (textEditingControllerEmail.text,
                 textEditingControllerPassword.text);
+              if( context.read<CompanyListingProvider>().status == Status.success){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>   AfterLogin()));
+              }
               var snackBar = const SnackBar(content: Text('Sucessfully logged'));
-              
-
               }, child: Text('Press')),
               ElevatedButton(onPressed: (){
-                // if(context.read<CompanyListingProvider>().textEditingControllerEmail !=null
-                //     && context.read<CompanyListingProvider>().textEditingControllerPassword != null)
-                //   {
-                //
-                //   }
 
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const AfterLogin()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>   AfterLogin()));
               }, child: const Text('Google Maps')),
+              ElevatedButton(onPressed: (){
+                log(Constants.switchs);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>    AfterLogin()));
+              }, child: const Text('Local Button')),
+
 
             ],
           ),

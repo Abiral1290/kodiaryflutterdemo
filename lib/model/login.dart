@@ -69,27 +69,28 @@ Future<Apireponse<dynamic>> login(String email, String password) async {
   var resp = await http.post(Uri.parse(ApiUrls.login), body: body,headers: header);
 
   log(resp.statusCode.toString());
-  var object = jsonDecode(resp.body);
+ // var object = jsonDecode(resp.body);
   log(resp.body);
   try {
-    (object);
+  //  (object);
     if (resp.statusCode == 200) {
 
       Map<String, dynamic> object = json.decode(resp.body);
-      final data = await object["theme"].cast<Map<String, dynamic>>();
-      List<Theme> theme = await data.map<Theme>((value) {
-        var userList = Theme.fromJson(value);
+      log('my data $object');
 
-        return userList;
-      }).toList();
-      log(theme.first.palettes.toString());
-      Constants.appColor = Color(int.parse(theme.first.palettes!.first.value!));
 
-     //  log()
+
+      Theme theme = await  Theme.fromJson(object["theme"]);
+      //object["theme"].cast<Map<String, dynamic>>();
+      log(theme.toString());
+
+      String color = theme.palettes!.first.value!;
+      log(color);      Constants.appColor =
+          Color(int.parse(color.replaceAll('#','0xFF')));
     } else {
-      return Apireponse(statusCode: resp.statusCode, response: object['non_field_errors']);
+      return Apireponse(statusCode: resp.statusCode, response:'');
     }
-    return Apireponse(statusCode: resp.statusCode, response: object['token']);
+    return Apireponse(statusCode: resp.statusCode, response: '');
   } catch (e) {
     return Apireponse(statusCode: resp.statusCode, response: e);
   }

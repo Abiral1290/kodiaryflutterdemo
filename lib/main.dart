@@ -22,8 +22,10 @@ Future<void> main() async {
 
  location= await Location.instance.getLocation();
  log('my weather lat${location.latitude.toString()}');
- Constants.latitude = location.latitude.toString();
- Constants.longitude = location.longitude.toString();
+ log('my weather lat${location.longitude.toString()}');
+
+ Constants.latitude = location.latitude;
+ Constants.longitude = location.longitude;
 
 
  runApp(
